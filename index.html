@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="./css/app.css" />
+    <script src="./js/app.js"></script>
+  </head>
+
+  <body>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+   <header>
+     <nav class="w-full block">
+
+       <span class="w4-5 px-2 text-5xl font-extrabold italic ml-5 mt-5 block"> Endless Journey
+       <ul class="inline font-hairline not-italic">
+
+           <li class="inline px-4 text-lg"><a href="">About</a></li>
+         </ul>
+         <div class="inline-block float-right">
+            <button class="px-4 text-sm bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400 text-base" onclick="showStoryModal()">Create</button>
+          </div>
+       </span>
+
+     </nav>
+   </header>
+
+   <body class="h-screen bg-black">
+     <section id="current" class="w-full h-full">
+
+       <div class="flex ml-4 h-full">
+            <div class="w-2/3 inline-flex">
+              <div class="w-full bg-green-500 rounded-lg mr-4 mt-8 ml-4 px-4 ">
+                Journal
+                <div id="journal" class="overflow-y-scroll h-5/6 flex-none ">
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="w-1/3 inline-flex ">
+               <div class="w-full bg-blue-500 rounded-lg mr-4 mt-8 ml-4 px-4">
+                Achievements
+                <div id="ach" class="overflow-y-scroll h-5/6 flex-none">
+
+                </div>
+              </div>
+            </div>
+
+
+
+       </div>
+       <div class="flex flex-col w-full justify-items-stretch flex-grow rounded-lg ml-2">
+         <div class="w-full flex-1 px-5"><button class="w-full mt-4 mr-8 px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400" onclick="doBranchA()">Branch A</button></div>
+         <div class="w-full flex-1 px-5"><button class="w-full mt-4 mr-8 px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400" onclick="doBranchB()">Branch B</button></div>
+       </div>
+
+     </section>
+
+
+
+ <code id="hq">
+
+ </code>
+
+
+ <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center bg-black">
+   <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+   <div class="modal-container bg-white w-full max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+
+     <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+       <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+         <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+       </svg>
+       <span class="text-sm">(Esc)</span>
+     </div>
+
+     <!-- Add margin if you want to see some of the overlay behind the modal-->
+     <div class="modal-content py-4 text-left px-6 bg-black">
+       <!--Title-->
+       <div class="flex justify-between items-center pb-3">
+         <p class="text-2xl font-bold">Create Story</p>
+       </div>
+       <!--Body-->
+       <!-- Two columns -->
+       <div id="modal-content">
+
+
+         <div class="leading-loose">
+           <form class="max-w-xl m-4 p-10 bg-black rounded shadow-xl" onsubmit="event.preventDefault()">
+             <p class="text-white font-bold">New Story</p>
+             <div class="">
+               <label class="block text-sm text-white" for="cus_name">Initial Prompt</label>
+               <input class="w-full px-5 py-1 text-gray-800 bg-white-200 rounded" id="story" name="story" type="text" required="" placeholder="Story" aria-label="Name">
+             </div>
+             <div class="mt-2">
+               <label class="block text-sm text-white" for="cus_email">Variables:</label>
+               <input type="number" placeholder="Energy" id="initial_energy" name="initial_energy" min="1" max="100">
+               <input type="number" placeholder="Water" id="initial_water" name="initial_water" min="1" max="100">
+               <input type="number" placeholder="Integrity" id="initial_integrity" name="initial_integrity" min="1" max="100">
+               <input type="number" placeholder="Affiliation" id="initial_affiliation" name="initial_affiliation" min="1" max="100">
+               <input type="number" placeholder="Certainity" id="initial_certainty" name="initial_certainty" min="1" max="100">
+               <input type="number" placeholder="Competence" id="initial_competence" name="initial_competence" min="1" max="100">
+             </div>
+             <div class="mt-2">
+               <label class=" block text-sm text-white bg-white-200">Branches</label>
+
+             </div>
+
+             <div class="inline-block mt-2 w-1/2 pr-1">
+               <label class="hidden block text-sm text-white bg-gray-200" for="branch_a">Branch A</label>
+               <input class="w-full px-2 py-2 text-gray-800 bg-white-200 rounded" id="branch_a" name="branch_a" type="text" required="" placeholder="Option A" aria-label="Email">
+             </div>
+             <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
+               <label class="hidden block text-sm text-white bg-gray-200" for="branch_b">Branch B</label>
+               <input class="w-full px-2 py-2 text-gray-800 bg-white-200 rounded" id="branch_b" name="branch_b" type="text" required="" placeholder="Option B" aria-label="Email">
+             </div>
+             <div class="mt-2">
+               <label class="block text-sm text-white bg-white-200">Emotion</label>
+
+             </div>
+             <div class="inline-block mt-2 w-1/3 pr-1">
+
+               <input class="w-full px-2 py-2 text-gray-800 bg-white-200 rounded" id="initial_emotion" name="initial_emotion" type="text" required="" placeholder="Emotion" aria-label="Emotion">
+             </div>
+             <div class="inline-block mt-2 -mx-1 pl-1 w-1/3">
+
+               <input class="w-full px-2 py-2 text-gray-800 bg-white-200 rounded" id="adj_one" name="adj_one" type="text" required="" placeholder="Adjective 1" aria-label="Email">
+             </div>
+             <div class="inline-block mt-2 -mx-1 pl-1 w-1/3">
+
+               <input class="w-full px-2 py-2 text-gray-800 bg-white-200 rounded" id="adj_two" name="adj_two" type="text" required="" placeholder="Adjective 2" aria-label="Email">
+
+             </div>
+               <div class="mt-2">
+               <label class="block text-sm text-white bg-white-200">Acheivement</label>
+             </div>
+              <div class="inline-block mt-2 w-full pr-1">
+
+                <input class="w-full px-2 py-2 text-gray-800 bg-white-200 rounded" id="initial_ach" name="initial_ach" type="text" required="" placeholder="Acheivement" aria-label="Acheivement">
+             </div>
+             </div>
+
+
+             <div class="mt-4 bg-black">
+               <button class="px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400" onclick="doNewStory()">Create</button>
+             </div>
+           </form>
+         </div>
+       </div>
+
+       <!--Footer-->
+       <div class="flex justify-end pt-2 bg-black">
+
+         <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+       </div>
+
+     </div>
+   </div>
+   </body>
+
+</html>
